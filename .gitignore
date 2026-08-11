@@ -1,0 +1,68 @@
+# Visual Studio / MSBuild
+.vs/
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+*.VC.db
+*.VC.VC.opendb
+
+# Build output
+bin/
+obj/
+[Bb]uild/
+[Dd]ebug/
+[Rr]elease/
+artifacts/
+
+# Test / coverage output
+TestResults/
+*.coverage
+*.coveragexml
+
+# NuGet / packages if introduced later
+packages/
+*.nupkg
+
+# Runtime data - never commit live ForgeWorks data
+ForgeWorksData/
+Database/*.db
+Database/*.db-shm
+Database/*.db-wal
+*.db
+*.sqlite
+*.sqlite3
+
+# Repository-managed operational data
+Attachments/
+Photos/
+Reports/
+Logs/
+Backups/
+Config/
+Temp/
+
+# Local configuration / profiles
+*.local.xml
+*.local.json
+workstation*.xml
+repository_profiles*.xml
+
+# Logs and exports
+*.log
+*.csv
+
+# Packaged releases
+*.zip
+*.7z
+*.rar
+
+# OS files
+Thumbs.db
+Desktop.ini
+.DS_Store
+
+# Temporary files
+*.tmp
+*.temp
+~$*
