@@ -1,25 +1,29 @@
-# What's New - SOACS ForgeWorks v3.0.0
 
-## Repository Manager Foundation
+## v3.1.4 RC1 Layout Hotfix
+- Operations workspace now opens at Step 1 instead of auto-scrolling to the scanner input.
+- Inventory summary values given DPI-safe vertical space.
+- Inventory grid uses readable fixed starting widths with horizontal scrolling on laptop displays.
+- Feedback dialog bottom options and Cancel/Submit actions no longer clip at 125% scaling.
+- Feedback submissions remain stored under the active repository `Feedback` folder.
+- Status bar spacing compacted so Last Sync and the clock remain visible at 1920x1080.
 
-- Added a single configurable Repository Root.
-- Added automatic creation of Database, Attachments, Photos, Reports, Logs, Backups, Config, and Temp folders.
-- Added repository health/status information in Settings.
-- Routed database, backups, and item attachments through the Repository Manager foundation.
+# What's New - SOACS ForgeWorks v3.1.4 RC1
 
-This is Phase 1 of the distributed operations architecture. Offline mode and synchronization are planned future phases.
+## New
+- Feedback Center available from the header.
+- Automatic screenshot capture for feedback reports.
+- Automatic technical metadata capture: version, workspace, repository profile, operator, computer, Windows version, resolution, and DPI scaling.
+- Feedback packages saved inside the active Repository under `Feedback`.
+- Administration page includes an Open Feedback shortcut.
 
+## Improved
+- Repository Manager now includes Feedback folder creation and health status.
+- Build labels updated to v3.1.4 RC1.
+- Documentation refreshed against FW-OP-001 and FW-SDD-001.
 
-## v3.0.1 - Repository Integration Phase 2
+## Fixed / Stabilized
+- Continued RC stabilization around Repository Manager, profiles, Inventory Workspace, and Administration workspace.
 
-- Added AttachmentManager, PhotoManager, ReportManager, LogManager, and BackupManager services.
-- Routed item attachments through the Repository Manager.
-- Routed item camera/photo saves through the Repository Manager photo repository.
-- Added Repository Health panel to Administration with verify/repair, open repository, and backup actions.
-- Continued centralizing file access around the Data Root repository structure.
-
-## v3.1.3
-
-- Inventory Workspace redesigned with search, quick filters, item summary, procurement summary, and document preview.
-- Added Inventory column chooser with saved workstation preferences.
-- Added right-click inventory actions for faster operator workflow.
+## Known Focus Areas
+- Continue tester validation at 3440x1440 @ 125% scaling and 1920x1080 @ 100% scaling.
+- Continue validating attachments, procurement, reports, and repository profile switching.

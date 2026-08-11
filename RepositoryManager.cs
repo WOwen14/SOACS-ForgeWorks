@@ -40,6 +40,7 @@ namespace SOACSForgeWorks.Core
         public string ReportsFolder { get; set; }
         public string LogsFolder { get; set; }
         public string BackupsFolder { get; set; }
+        public string FeedbackFolder { get; set; }
         public bool RepositoryAvailable { get; set; }
         public bool DatabaseFolderOk { get; set; }
         public bool AttachmentsFolderOk { get; set; }
@@ -47,6 +48,7 @@ namespace SOACSForgeWorks.Core
         public bool ReportsFolderOk { get; set; }
         public bool LogsFolderOk { get; set; }
         public bool BackupsFolderOk { get; set; }
+        public bool FeedbackFolderOk { get; set; }
         public long FreeSpaceBytes { get; set; }
         public string Message { get; set; }
     }
@@ -80,6 +82,7 @@ namespace SOACSForgeWorks.Core
         public static string ReportsFolder { get { return Path.Combine(RepositoryRoot, "Reports"); } }
         public static string LogsFolder { get { return Path.Combine(RepositoryRoot, "Logs"); } }
         public static string BackupsFolder { get { return Path.Combine(RepositoryRoot, "Backups"); } }
+        public static string FeedbackFolder { get { return Path.Combine(RepositoryRoot, "Feedback"); } }
         public static string ConfigFolder { get { return Path.Combine(RepositoryRoot, "Config"); } }
         public static string TempFolder { get { return Path.Combine(RepositoryRoot, "Temp"); } }
 
@@ -122,6 +125,7 @@ namespace SOACSForgeWorks.Core
             Directory.CreateDirectory(Path.Combine(root, "Reports"));
             Directory.CreateDirectory(Path.Combine(root, "Logs"));
             Directory.CreateDirectory(Path.Combine(root, "Backups"));
+            Directory.CreateDirectory(Path.Combine(root, "Feedback"));
             Directory.CreateDirectory(Path.Combine(root, "Config"));
             Directory.CreateDirectory(Path.Combine(root, "Temp"));
         }
@@ -256,6 +260,7 @@ namespace SOACSForgeWorks.Core
             health.ReportsFolder = ReportsFolder;
             health.LogsFolder = LogsFolder;
             health.BackupsFolder = BackupsFolder;
+            health.FeedbackFolder = FeedbackFolder;
             try
             {
                 EnsureRepository();
@@ -266,6 +271,7 @@ namespace SOACSForgeWorks.Core
                 health.ReportsFolderOk = Directory.Exists(ReportsFolder);
                 health.LogsFolderOk = Directory.Exists(LogsFolder);
                 health.BackupsFolderOk = Directory.Exists(BackupsFolder);
+                health.FeedbackFolderOk = Directory.Exists(FeedbackFolder);
                 health.FreeSpaceBytes = GetFreeSpace(RepositoryRoot);
                 health.Message = "Repository healthy. Active profile: " + health.ProfileName + ".";
             }

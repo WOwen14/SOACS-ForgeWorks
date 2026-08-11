@@ -51,14 +51,14 @@ namespace SOACSForgeWorks.Pages
 
         private string BuildInfoText()
         {
-            return "Version: 2.3.2 Operations Layout Fit\r\n" +
+            return "Version: 3.1.4 RC1 Operational Readiness\r\n" +
                    "Database Version: " + InventoryStore.CurrentDatabaseVersion + "\r\n" +
                    "Database Mode: " + (InventoryStore.Workstation.UseSharedDatabase ? "Shared" : "Local") + "\r\n" +
                    "Workstation Mode: " + InventoryStore.Workstation.WorkstationMode + "\r\n" +
                    "Operator: " + InventoryStore.CurrentOperator + "\r\n" +
                    "Windows User: " + InventoryStore.CurrentDomainUser + "\r\n" +
                    "Workstation: " + InventoryStore.CurrentMachineName + "\r\n" +
-                   "Build Date: 2026-07-06\r\n" +
+                   "Build Date: 2026-07-09\r\n" +
                    "Scanner: Ready";
         }
 

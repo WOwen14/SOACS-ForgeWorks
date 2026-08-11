@@ -23,6 +23,7 @@ namespace SOACSForgeWorks.Pages
         private CheckBox keepProjectBox;
         private CheckBox keepLocationBox;
         private Timer focusTimer;
+        private Panel scrollHost;
         private TableLayoutPanel operationButtons;
         private TextBox partSearchBox;
         private DataGridView partSearchGrid;
@@ -67,7 +68,7 @@ namespace SOACSForgeWorks.Pages
             // Scrollable workspace: header, navigation, and status bar stay fixed while
             // the Operations cards can grow naturally. This prevents DPI/scale clipping
             // at 125% and smaller window sizes.
-            var scrollHost = new Panel
+            scrollHost = new Panel
             {
                 Dock = DockStyle.Fill,
                 AutoScroll = true,
@@ -166,8 +167,8 @@ namespace SOACSForgeWorks.Pages
             SelectOperation("Lookup Item");
             HookContextUpdateEvents();
 
-            Load += (s, e) => { if (inputBox != null) inputBox.Focus(); };
-            VisibleChanged += (s, e) => { if (Visible && inputBox != null) inputBox.Focus(); };
+            Load += (s, e) => ResetWorkspaceToTop();
+            VisibleChanged += (s, e) => { if (Visible) ResetWorkspaceToTop(); };
             focusTimer = new Timer { Interval = 3000 };
             focusTimer.Tick += (s, e) =>
             {
@@ -184,6 +185,28 @@ namespace SOACSForgeWorks.Pages
 
             Theme.ApplyToTree(this);
             ResumeLayout(true);
+        }
+
+
+        private void ResetWorkspaceToTop()
+        {
+            // Focusing the scanner input inside an AutoScroll panel can cause WinForms
+            // to scroll the focused control into view. Focus it first so HID scanner
+            // input still works, then explicitly restore the workspace to Step 1.
+            if (scrollHost == null || inputBox == null) return;
+            try
+            {
+                BeginInvoke(new Action(() =>
+                {
+                    try
+                    {
+                        inputBox.Focus();
+                        scrollHost.AutoScrollPosition = Point.Empty;
+                    }
+                    catch { }
+                }));
+            }
+            catch { }
         }
 
         private TableLayoutPanel BuildOperationButtonGrid()

@@ -30,7 +30,7 @@ namespace SOACSForgeWorks
 
         public MainForm()
         {
-            Text = "SOACS ForgeWorks v3.1.1 Repository Profile Hotfix";
+            Text = "SOACS ForgeWorks v3.1.4 RC1 Operational Readiness";
             StartPosition = FormStartPosition.CenterScreen;
             WindowState = FormWindowState.Maximized;
             AutoScaleMode = AutoScaleMode.Dpi;
@@ -171,7 +171,7 @@ namespace SOACSForgeWorks
             var headerLayout = new TableLayoutPanel
             {
                 Dock = DockStyle.Fill,
-                ColumnCount = 4,
+                ColumnCount = 5,
                 RowCount = 1,
                 BackColor = Theme.Header,
                 Margin = Padding.Empty,
@@ -180,6 +180,7 @@ namespace SOACSForgeWorks
             headerLayout.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 92F));
             headerLayout.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 560F));
             headerLayout.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
+            headerLayout.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 130F));
             headerLayout.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 330F));
             headerPanel.Controls.Add(headerLayout);
 
@@ -233,14 +234,28 @@ namespace SOACSForgeWorks
                 TextAlign = ContentAlignment.MiddleCenter
             }, 2, 0);
 
+            var feedback = new Button
+            {
+                Dock = DockStyle.Fill,
+                Text = "💬 Feedback",
+                BackColor = Theme.Panel2,
+                ForeColor = Theme.Gold,
+                FlatStyle = FlatStyle.Flat,
+                Font = Theme.NormalFont,
+                Margin = new Padding(8, 18, 8, 18)
+            };
+            feedback.FlatAppearance.BorderColor = Theme.Border;
+            feedback.Click += (s, e) => OpenFeedback();
+            headerLayout.Controls.Add(feedback, 3, 0);
+
             headerLayout.Controls.Add(new Label
             {
                 Dock = DockStyle.Fill,
-                Text = "USER: " + InventoryStore.CurrentOperator.ToUpperInvariant() + "\r\nPC: " + InventoryStore.CurrentMachineName.ToUpperInvariant() + "\r\nBUILD: v3.1.1  |  " + InventoryStore.Workstation.WorkstationMode.ToUpperInvariant(),
+                Text = "USER: " + InventoryStore.CurrentOperator.ToUpperInvariant() + "\r\nPC: " + InventoryStore.CurrentMachineName.ToUpperInvariant() + "\r\nBUILD: v3.1.4 RC1  |  " + InventoryStore.Workstation.WorkstationMode.ToUpperInvariant(),
                 ForeColor = Theme.Muted,
                 Font = Theme.SmallFont,
                 TextAlign = ContentAlignment.MiddleRight
-            }, 3, 0);
+            }, 4, 0);
         }
 
         private void LoadApplicationIcon()
@@ -257,37 +272,38 @@ namespace SOACSForgeWorks
         {
             statusPanel.Controls.Clear();
 
-            var leftFlow = new FlowLayoutPanel
-            {
-                Dock = DockStyle.Left,
-                Width = 1320,
-                FlowDirection = FlowDirection.LeftToRight,
-                WrapContents = false,
-                BackColor = Theme.Header,
-                Padding = new Padding(0),
-                Margin = Padding.Empty
-            };
-            statusPanel.Controls.Add(leftFlow);
-
-            AddStatusChip(leftFlow, "● READY", Theme.Green, 95);
-            AddStatusChip(leftFlow, "PROFILE: " + (InventoryStore.Workstation == null ? "Standalone" : InventoryStore.Workstation.RepositoryProfile).ToUpperInvariant(), GetProfileColor(), 170);
-            AddStatusChip(leftFlow, InventoryStore.Workstation.UseSharedDatabase ? "DATABASE: SHARED" : "DATABASE: LOCAL", Theme.Muted, 150);
-            AddStatusChip(leftFlow, InventoryStore.IsReadOnly ? "READ-ONLY VIEWER" : "OPERATOR MODE", InventoryStore.IsReadOnly ? Theme.Gold : Theme.Muted, 160);
-            AddStatusChip(leftFlow, "SCANNER READY", Theme.Muted, 150);
-            statusInventory = AddStatusChip(leftFlow, "INVENTORY: --", Theme.Muted, 140);
-            statusProjects = AddStatusChip(leftFlow, "PROJECTS: --", Theme.Muted, 130);
-            AddStatusChip(leftFlow, "BACKUPS: MANUAL", Theme.Gold, 145);
-            statusSync = AddStatusChip(leftFlow, "LIVE REFRESH: ON", Theme.Green, 160);
-
+            // Reserve the clock first, then allow the status flow to use the remaining
+            // width. Compact chips keep Last Sync fully visible on 1920x1080 laptops.
             statusClock = new Label
             {
                 Dock = DockStyle.Right,
-                Width = 200,
+                Width = 185,
                 TextAlign = ContentAlignment.MiddleRight,
                 ForeColor = Theme.Muted,
                 Font = Theme.SmallFont
             };
             statusPanel.Controls.Add(statusClock);
+
+            var leftFlow = new FlowLayoutPanel
+            {
+                Dock = DockStyle.Fill,
+                FlowDirection = FlowDirection.LeftToRight,
+                WrapContents = false,
+                BackColor = Theme.Header,
+                Padding = Padding.Empty,
+                Margin = Padding.Empty
+            };
+            statusPanel.Controls.Add(leftFlow);
+
+            AddStatusChip(leftFlow, "● READY", Theme.Green, 70);
+            AddStatusChip(leftFlow, "PROFILE: " + (InventoryStore.Workstation == null ? "STANDALONE" : InventoryStore.Workstation.RepositoryProfile).ToUpperInvariant(), GetProfileColor(), 145);
+            AddStatusChip(leftFlow, InventoryStore.Workstation.UseSharedDatabase ? "DB: SHARED" : "DB: LOCAL", Theme.Muted, 105);
+            AddStatusChip(leftFlow, InventoryStore.IsReadOnly ? "READ ONLY" : "OPERATOR", InventoryStore.IsReadOnly ? Theme.Gold : Theme.Muted, 95);
+            AddStatusChip(leftFlow, "SCANNER READY", Theme.Muted, 115);
+            statusInventory = AddStatusChip(leftFlow, "INVENTORY: --", Theme.Muted, 105);
+            statusProjects = AddStatusChip(leftFlow, "PROJECTS: --", Theme.Muted, 100);
+            AddStatusChip(leftFlow, "BACKUP: MANUAL", Theme.Gold, 115);
+            statusSync = AddStatusChip(leftFlow, "LIVE REFRESH: ON", Theme.Green, 150);
 
             clockTimer = new Timer { Interval = 1000 };
             clockTimer.Tick += (s, e) => statusClock.Text = DateTime.Now.ToString("M/d/yyyy  HH:mm:ss");
@@ -334,7 +350,7 @@ namespace SOACSForgeWorks
             {
                 Dock = DockStyle.Bottom,
                 Height = 50,
-                Text = "SOACS ForgeWorks v3.1.1\r\nRepository Profiles",
+                Text = "SOACS ForgeWorks v3.1.4 RC1\r\nOperational Readiness",
                 ForeColor = Theme.Muted,
                 Font = Theme.SmallFont,
                 TextAlign = ContentAlignment.MiddleCenter
@@ -448,6 +464,22 @@ namespace SOACSForgeWorks
             Theme.ApplyToTree(page);
             contentPanel.ResumeLayout(true);
             RefreshStatusMetrics();
+        }
+
+
+        private void OpenFeedback()
+        {
+            try
+            {
+                using (var f = new FeedbackForm(activePage))
+                {
+                    f.ShowDialog(this);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Unable to open feedback window:\r\n" + ex.Message, "ForgeWorks Feedback", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
         }
 
 

@@ -105,12 +105,16 @@ namespace SOACSForgeWorks.Pages
                 BackColor = Theme.Background,
                 Padding = new Padding(0)
             };
-            main.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 68));
-            main.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 32));
+            // Favor the inventory grid on standard 1920x1080 laptops. The detail pane
+            // remains visible, while the grid receives enough width to stay usable.
+            main.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 76));
+            main.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 24));
             root.Controls.Add(main, 0, 2);
 
             var left = new TableLayoutPanel { Dock = DockStyle.Fill, ColumnCount = 1, RowCount = 3, BackColor = Theme.Background, Padding = new Padding(0, 0, 8, 0) };
-            left.RowStyles.Add(new RowStyle(SizeType.Absolute, 70));
+            // Extra height prevents the summary values from being vertically clipped
+            // at 125% Windows display scaling.
+            left.RowStyles.Add(new RowStyle(SizeType.Absolute, 92));
             left.RowStyles.Add(new RowStyle(SizeType.Absolute, 48));
             left.RowStyles.Add(new RowStyle(SizeType.Percent, 100));
             main.Controls.Add(left, 0, 0);
@@ -148,7 +152,9 @@ namespace SOACSForgeWorks.Pages
             grid = new DataGridView
             {
                 Dock = DockStyle.Fill,
-                AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill,
+                // Do not squeeze every inventory field into the viewport. Fixed readable
+                // starting widths plus horizontal scrolling are far more usable on laptops.
+                AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.None,
                 ReadOnly = true,
                 AllowUserToAddRows = false,
                 AllowUserToDeleteRows = false,
@@ -156,7 +162,8 @@ namespace SOACSForgeWorks.Pages
                 MultiSelect = false,
                 RowHeadersVisible = false,
                 BorderStyle = BorderStyle.None,
-                EnableHeadersVisualStyles = false
+                EnableHeadersVisualStyles = false,
+                ScrollBars = ScrollBars.Both
             };
             Theme.ApplyGridTheme(grid);
             grid.SelectionChanged += (s, e) => { if (!loadingGrid) UpdateSummary(SelectedItem()); };
@@ -173,8 +180,8 @@ namespace SOACSForgeWorks.Pages
         {
             var card = CardPanel();
             card.Margin = new Padding(column == 0 ? 0 : 6, 0, column == 3 ? 0 : 6, 0);
-            var c = new Label { Text = caption.ToUpperInvariant(), Dock = DockStyle.Top, Height = 22, ForeColor = Theme.Muted, Font = Theme.SmallFont, TextAlign = ContentAlignment.MiddleLeft };
-            var v = new Label { Text = value, Dock = DockStyle.Fill, ForeColor = Theme.Gold, Font = new Font("Segoe UI Semibold", 16, FontStyle.Bold), TextAlign = ContentAlignment.MiddleLeft };
+            var c = new Label { Text = caption.ToUpperInvariant(), Dock = DockStyle.Top, Height = 26, ForeColor = Theme.Muted, Font = Theme.SmallFont, TextAlign = ContentAlignment.MiddleLeft };
+            var v = new Label { Text = value, Dock = DockStyle.Fill, ForeColor = Theme.Gold, Font = new Font("Segoe UI Semibold", 17, FontStyle.Bold), TextAlign = ContentAlignment.MiddleLeft, AutoEllipsis = true, Padding = new Padding(0, 2, 0, 0) };
             card.Controls.Add(v);
             card.Controls.Add(c);
             parent.Controls.Add(card, column, 0);
@@ -420,15 +427,34 @@ namespace SOACSForgeWorks.Pages
 
         private void ApplyColumnWeights()
         {
-            SetWeight("ForgeId", 70); SetWeight("Nomenclature", 180); SetWeight("PartNumber", 90); SetWeight("CAGE", 65); SetWeight("NSN", 95);
-            SetWeight("MRL", 90); SetWeight("Quantity", 58); SetWeight("Available", 65); SetWeight("Minimum", 58); SetWeight("Status", 75);
-            SetWeight("Project", 100); SetWeight("Location", 115); SetWeight("UnitCost", 70); SetWeight("Value", 78); SetWeight("Vendor", 105);
-            SetWeight("Documents", 70); SetWeight("Photo", 75); SetWeight("LastUpdated", 90);
+            // Starting widths intentionally favor the fields technicians use most.
+            // Secondary fields remain available by horizontal scrolling and the column chooser.
+            SetColumnWidth("ForgeId", 105, 90);
+            SetColumnWidth("Nomenclature", 240, 180);
+            SetColumnWidth("PartNumber", 135, 105);
+            SetColumnWidth("CAGE", 90, 75);
+            SetColumnWidth("NSN", 145, 115);
+            SetColumnWidth("MRL", 135, 105);
+            SetColumnWidth("Quantity", 85, 70);
+            SetColumnWidth("Available", 90, 75);
+            SetColumnWidth("Minimum", 85, 70);
+            SetColumnWidth("Status", 105, 90);
+            SetColumnWidth("Project", 155, 120);
+            SetColumnWidth("Location", 165, 130);
+            SetColumnWidth("UnitCost", 100, 85);
+            SetColumnWidth("Value", 110, 90);
+            SetColumnWidth("Vendor", 165, 125);
+            SetColumnWidth("Documents", 95, 80);
+            SetColumnWidth("Photo", 110, 85);
+            SetColumnWidth("LastUpdated", 125, 105);
         }
 
-        private void SetWeight(string name, float weight)
+        private void SetColumnWidth(string name, int width, int minimumWidth)
         {
-            if (grid.Columns.Contains(name)) grid.Columns[name].FillWeight = weight;
+            if (!grid.Columns.Contains(name)) return;
+            var column = grid.Columns[name];
+            column.MinimumWidth = minimumWidth;
+            column.Width = Math.Max(width, minimumWidth);
         }
 
         private void ApplyColumnVisibility()

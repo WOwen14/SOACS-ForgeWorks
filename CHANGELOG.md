@@ -1,3 +1,33 @@
+
+## v3.1.4 RC1 Layout Hotfix
+- Operations workspace now opens at Step 1 instead of auto-scrolling to the scanner input.
+- Inventory summary values given DPI-safe vertical space.
+- Inventory grid uses readable fixed starting widths with horizontal scrolling on laptop displays.
+- Feedback dialog bottom options and Cancel/Submit actions no longer clip at 125% scaling.
+- Feedback submissions remain stored under the active repository `Feedback` folder.
+- Status bar spacing compacted so Last Sync and the clock remain visible at 1920x1080.
+
+## v3.1.4 RC1 - Operational Readiness + Feedback Center
+
+### New
+- Added Feedback Center from the application header.
+- Feedback submissions automatically capture ForgeWorks version, active workspace, repository profile, repository root, operator, computer name, timestamp, Windows/system details, display resolution, and DPI scaling estimate.
+- Feedback submissions can include an automatic screenshot of the active ForgeWorks window.
+- Feedback packages are saved under the active repository in `Feedback\yyyy-MM-dd_HHmmss_Category`.
+- Added Repository Health and SystemInfo diagnostic files to feedback bundles.
+- Added Administration shortcut to open the Feedback repository folder.
+
+### Documentation
+- Updated Operator Guide, Administrator Guide, Help Me, and What's New markdown files for v3.1.4 RC1.
+- Added the current FW-OP-001 and FW-SDD-001 documents to the documentation folder as the baseline reference set.
+
+### Improved
+- Updated build labels to v3.1.4 RC1.
+- Added Feedback folder to the Repository Manager folder structure and health checks.
+
+### Notes
+- This is the first Release Candidate focused on tester feedback and operational readiness.
+
 ## v3.1.1 - Repository Profile Hotfix
 
 ### Fixed

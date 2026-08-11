@@ -80,13 +80,14 @@ namespace SOACSForgeWorks.Pages
             rootNode.Nodes.Add("Reports");
             rootNode.Nodes.Add("Logs");
             rootNode.Nodes.Add("Backups");
+            rootNode.Nodes.Add("Feedback");
             var profilesNode = rootNode.Nodes.Add("Profiles");
             foreach (var profile in RepositoryManager.LoadProfiles()) profilesNode.Nodes.Add(profile.Name);
             rootNode.Expand();
             p.Controls.Add(tree, 1, 0);
 
-            var buttons = new TableLayoutPanel { Dock = DockStyle.Fill, RowCount = 6, ColumnCount = 1, BackColor = Theme.Panel, Padding = new Padding(8, 0, 0, 0) };
-            for (int i = 0; i < 5; i++) buttons.RowStyles.Add(new RowStyle(SizeType.Absolute, 42));
+            var buttons = new TableLayoutPanel { Dock = DockStyle.Fill, RowCount = 7, ColumnCount = 1, BackColor = Theme.Panel, Padding = new Padding(8, 0, 0, 0) };
+            for (int i = 0; i < 6; i++) buttons.RowStyles.Add(new RowStyle(SizeType.Absolute, 38));
             buttons.RowStyles.Add(new RowStyle(SizeType.Percent, 100));
 
             var open = Button("Open Repository");
@@ -109,11 +110,16 @@ namespace SOACSForgeWorks.Pages
             copy.Dock = DockStyle.Fill;
             copy.Click += (s, e) => { try { Clipboard.SetText(RepositoryManager.RepositoryRoot ?? string.Empty); } catch { } };
 
+            var feedback = Button("Open Feedback");
+            feedback.Dock = DockStyle.Fill;
+            feedback.Click += (s, e) => { try { Directory.CreateDirectory(FeedbackManager.FeedbackRoot); Process.Start(new ProcessStartInfo(FeedbackManager.FeedbackRoot) { UseShellExecute = true }); } catch { } };
+
             buttons.Controls.Add(open, 0, 0);
             buttons.Controls.Add(verify, 0, 1);
             buttons.Controls.Add(backup, 0, 2);
             buttons.Controls.Add(profiles, 0, 3);
-            buttons.Controls.Add(copy, 0, 4);
+            buttons.Controls.Add(feedback, 0, 4);
+            buttons.Controls.Add(copy, 0, 5);
             p.Controls.Add(buttons, 2, 0);
             return p;
         }

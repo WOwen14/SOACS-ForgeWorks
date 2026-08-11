@@ -1,19 +1,30 @@
-# Help Me
+# Help Me - SOACS ForgeWorks v3.1.4 RC1
 
-## I need to find an item
-Open Operations or Inventory. Scan or type a Forge ID, barcode, serial number, part number, or NSN.
+## How do I submit feedback?
+1. Click **Feedback** in the application header.
+2. Select a category: Bug, UI / Layout, Enhancement, Performance, or Question.
+3. Describe what happened and what you expected.
+4. Leave **Include Screenshot**, **Repository Health**, and **System Info** checked unless instructed otherwise.
+5. Click **Submit**.
 
-## I need to receive material
-Open Operations, select Receive Inventory, scan or type the item identifier, enter quantity, and complete the transaction.
+ForgeWorks saves the feedback package in the active repository under the **Feedback** folder.
 
-## I need to issue material
-Open Operations, select Issue Inventory, scan or type the item identifier, enter quantity, select project if applicable, and complete the transaction.
+## How do I find feedback reports?
+1. Open **Administration**.
+2. In the Repository section, click **Open Feedback**.
+3. Open the dated feedback folder.
 
-## I need a project parts list
-Open Reports, select Project Parts List, choose a project, select columns, and click Print Preview or Print.
+Each submission contains Feedback.xml, SystemInfo.txt, RepositoryHealth.txt, and Screenshot.png when screenshot capture is enabled.
 
-## I need an entire inventory report
-Open Reports, select Entire Inventory, choose columns, and click Print Preview, Print, or Export CSV.
+## How do I attach documents to an item?
+1. Open the item record.
+2. Use the Documents / Attachments section.
+3. Click **Add Documents**.
+4. Select one or more files.
+5. Save the item.
 
-## I do not want to see Windows User in transaction logs
-Open Reports, select a transaction report, uncheck Windows User in the column chooser, then print or export.
+## How do I open or print attached documents?
+Open the item record, select the attachment, then use **Open** or **Print**. ForgeWorks uses the default Windows application for that file type.
+
+## How do I switch repository profiles?
+Open **Settings**, select the repository profile, confirm the switch, then allow ForgeWorks to refresh its data from the selected repository.

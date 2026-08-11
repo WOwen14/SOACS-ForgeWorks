@@ -48,7 +48,7 @@ namespace SOACSForgeWorks
             progress = new ProgressBar { Location = new Point((contentWidth - 285) / 2, 348), Size = new Size(285, 14), Minimum = 0, Maximum = 100, Value = 0 };
             body.Controls.Add(progress);
 
-            var copy = new Label { Text = "v3.1.1  |  © 2026 SOACS", ForeColor = Theme.Muted, Font = Theme.SmallFont, AutoSize = false, TextAlign = ContentAlignment.MiddleCenter, Location = new Point(0, 368), Size = new Size(contentWidth, 22) };
+            var copy = new Label { Text = "v3.1.4 RC1  |  © 2026 SOACS", ForeColor = Theme.Muted, Font = Theme.SmallFont, AutoSize = false, TextAlign = ContentAlignment.MiddleCenter, Location = new Point(0, 368), Size = new Size(contentWidth, 22) };
             body.Controls.Add(copy);
 
             timer = new Timer { Interval = 50 };
