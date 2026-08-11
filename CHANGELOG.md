@@ -1,3 +1,22 @@
+# SOACS ForgeWorks Changelog
+
+## v3.1.3 - Inventory Workspace Update
+
+### Added
+- Redesigned Inventory Workspace with search and quick filters.
+- Added item summary and procurement summary panels.
+- Added document preview in the Inventory Workspace.
+- Added Inventory column chooser with saved workstation preferences.
+- Added right-click inventory actions for faster user workflow.
+
+### Changed
+- Application project metadata updated to version 3.1.3.0.
+- Continued refinement of the repository-managed data architecture introduced in v3.0.x.
+
+### Status
+- Current source baseline.
+- Live as a standalone deployment for user testing.
+
 ## v3.1.1 - Repository Profile Hotfix
 
 ### Fixed
@@ -33,8 +52,6 @@
 
 ### Fixed
 - Reduced Operations button width to prevent clipping/wrapping issues.
-
-# SOACS ForgeWorks Changelog
 
 ## v1.0.0 Reporting Preview
 
@@ -178,225 +195,3 @@
 
 ### Changed
 - Added a readable `InventoryItem.ToString()` fallback for list and combo display.
-- Updated build metadata to v2.0.1.
-
-## v2.1.0 - Live Data Engine + Full Screen Startup
-
-### Added
-- Live Data Engine that broadcasts inventory/database changes after saves and quantity updates.
-- Automatic refresh support for Dashboard, Inventory, Storage Explorer, Projects, Kits, Transactions, Reports, and Administration pages.
-- Background database change watcher for shared database setups.
-- Footer sync status indicator showing the last live refresh time.
-
-### Changed
-- Application now opens maximized by default for better operator use.
-- Operations Center layout adjusted so Scan or Type Item remains visible in maximized and windowed modes.
-- Updated build metadata to v2.1.0.
-
-### Notes
-- Manual Refresh buttons remain available as a fallback, but normal saves and quantity changes now trigger live refresh automatically.
-
-## v2.1.1 - Startup Stability
-
-### Fixed
-- Delayed Live Refresh startup until after the main window completes its first paint.
-- Prevented refresh events from firing while the application is still initializing.
-- Reduced startup flicker/glitching caused by early redraws and timer-based refresh events.
-
-### Changed
-- Splash screen now stays visible long enough to complete the progress bar.
-- Splash screen now displays startup status messages and closes after a minimum three-second startup presentation.
-- Updated displayed build version to v2.1.1.
-
-## v2.1.2 - Application Operations Workspace Console
-
-### Fixed
-- Reduced startup flicker by hiding the main window until shell initialization completes.
-- Delayed Live Refresh until after the first stable layout pass.
-- Prevented heavier pages from loading during initial startup.
-
-### Changed
-- Added lazy page loading so only Dashboard is created at launch.
-- Added double buffering pass across the form/control tree.
-- Splash screen now runs longer, reaches 100%, and displays clearer startup progress states.
-
-### Notes
-- This release focuses on startup polish and reducing visible UI construction during launch.
-
-## v2.3.0 - Operations Workspace Console
-
-### Added
-- Redesigned Operations Center as a task-focused workspace.
-- Added separated scan-vs-type input section for clearer operator workflow.
-- Added Current Operation / Last Item panel.
-- Added dynamic workflow guidance based on selected operation.
-- Updated application subtitle to Mission Fabrication Operations.
-
-### Changed
-- Rebuilt Operations layout to reduce clipping and improve usability.
-- Reorganized operation buttons into a cleaner two-row workspace layout.
-- Improved part search area for cases where barcode is unknown.
-- Extended splash screen behavior so the progress reaches 100% and holds before launch.
-
-### Fixed
-- Operator Guide/Help document viewer now fails safely instead of crashing the application.
-- Operations input area visibility improved for maximized and standard window sizes.
-
-## v2.3.0 - Operations Workspace Console
-
-### Added
-- Tighter Operations button grid with keyboard shortcut hints.
-- Larger Scan / Type item workspace.
-- Search results grid with Forge ID, nomenclature, quantity, and location columns.
-- Recent Operations grid with time, operation, item, quantity, and user.
-- Expanded Current Operation card with operator, quantity, project, location, and last item context.
-- Dynamic workflow checklist wording for each operation.
-
-### Changed
-- Application subtitle changed to **Mission Fabrication Operations**.
-- Transaction Details spacing increased for better readability.
-- Operations page card layout refined to feel more like an operator console.
-
-### Fixed
-- Operations page scan/search area crowding.
-- Search results display now uses a grid instead of list text.
-- Splash and About metadata updated to v2.3.0.
-
-
-## v2.3.1 - Operations Workspace Scroll/Fit
-
-### Fixed
-- Rebuilt Operations Workspace host as a scrollable card workspace to prevent clipping at 125% display scaling and smaller windows.
-- Increased Operations card heights for transaction details, scan/type item, search, current operation, workflow guidance, and recent operations.
-- Kept application header, left navigation, and status bar fixed while Operations content scrolls safely.
-
-### Changed
-- Operations Workspace now uses a reusable scroll-safe layout approach intended to become the SOACS workspace pattern.
-
-## v2.3.2 - Operations Layout Fit
-- Reworked Operations transaction details layout to prevent clipped fields at 125% display scaling.
-- Increased Operations workspace card heights and spacing while keeping fixed shell/header/status layout.
-- Improved Keep checkbox placement and added a Keep selections helper row.
-- Minor scan/search card spacing adjustments for readability.
-
-## v2.3.3 - Operations Scan Fit Polish
-
-### Fixed
-- Increased Operations workspace scanner/search card height so helper/status text no longer clips at 125% display scaling.
-- Increased internal padding for scanner and type/search panels.
-- Adjusted Operations workspace row heights so scan/search receives more usable vertical space without changing functionality.
-
-### Changed
-- Minor UI-only polish to Operations workspace layout. No workflow or data behavior changed.
-
-
-## v2.3.4 - Project List + Splash Polish
-
-### Changed
-- Simplified the Projects navigation list to Project, Status, and Priority only.
-- Widened the Projects list panel to reduce column crowding.
-- Centered the splash screen content block so logo, title, subtitle, loading text, and progress bar align properly.
-
-### Fixed
-- Removed unnecessary Project Code and Item Count columns from the left Projects list.
-- Applied the unified dark grid theme to the Projects page grids.
-
-
-## v2.3.5 - Live Refresh Recursion Fix
-
-### Fixed
-- Fixed Dashboard project filter refresh recursion that could cause System.StackOverflowException.
-- Added guard logic so project filter rebuilds do not trigger dashboard refresh repeatedly.
-- Added global refresh re-entry protection during Live Refresh events.
-- Added LiveDataBus re-entry protection to prevent nested data change notifications.
-
-### Changed
-- No functional workflow changes. This is a stability-only release.
-
-
-## v2.3.6 - Multi-Document Attachments + Branding
-
-### Added
-- Added multi-document attachment support in the Item Workspace.
-- Added Documents / Attachments tab with Add Documents, Open, Print, Remove, and Open Folder actions.
-- Added attachment metadata tracking: file name, type, category, added by, date added, and notes.
-- Added portable attachment folder structure under ForgeWorksData\Attachments\Items\<Forge ID>.
-
-### Changed
-- Replaced the single attached document workflow with a multi-document attachment manager.
-- Updated ForgeWorks logo assets with the latest approved SOACS ForgeWorks logo.
-- Updated application version to v2.3.6.
-
-### Notes
-- Documents are stored on disk, not inside the database. The database stores metadata and paths only.
-- Open and Print use the default Windows application registered for each file type.
-
-## v3.0.0 - Repository Manager Foundation
-
-### Added
-- Added Repository Manager foundation with a single configurable Repository Root.
-- Added automatic repository folder creation for Database, Attachments, Photos, Reports, Logs, Backups, Config, and Temp.
-- Added repository-aware path resolution for the inventory database and item attachments.
-- Added Repository Profile, Repository Root, and shared/network repository settings to Settings.
-- Added repository health information including repository paths and free space.
-
-### Changed
-- ForgeWorks now derives storage paths from the Repository Root instead of scattered local paths.
-- Backups are now stored under the repository Backups folder.
-- Item attachments are now stored under the repository Attachments folder.
-
-### Notes
-- This is Phase 1 of the distributed operations architecture. Offline mode and synchronization are planned future phases.
-
-
-## v3.0.1 - Repository Integration Phase 2
-
-- Added AttachmentManager, PhotoManager, ReportManager, LogManager, and BackupManager services.
-- Routed item attachments through the Repository Manager.
-- Routed item camera/photo saves through the Repository Manager photo repository.
-- Added Repository Health panel to Administration with verify/repair, open repository, and backup actions.
-- Continued centralizing file access around the Data Root repository structure.
-
-
-## v3.1.0 - Repository Profile Manager
-
-### Added
-- Repository Profile dropdown in Settings.
-- Default profiles: Production, Test Lab, Standalone, and Offline.
-- XML-backed profile storage under the workstation configuration folder.
-- Switch Profile workflow with confirmation and repository reload.
-- Profile color/status indicator in the status bar.
-- Administration Repository Health now shows active profile and profile list.
-
-### Changed
-- Repository status now reports the active profile.
-- Build/version labels updated to v3.1.0.
-
-## v3.1.2 - Administration Workspace Polish
-
-### Fixed
-- Fixed Repository action button clipping on the Administration page at 125% display scaling.
-- Increased Repository section height and spacing.
-
-### Changed
-- Added Repository Summary layout with clearer profile, root, health, and free-space details.
-- Added Copy Root Path action.
-- Improved Repository Root display with ellipsis and full-path tooltip.
-
-
-## v3.1.3 - Inventory Workspace Modernization
-
-### Added
-- Modern Inventory Workspace layout with statistics cards, quick filters, item preview, procurement summary, and attachment preview.
-- Global inventory search across Forge ID, nomenclature, NSN, MRL, CAGE, vendor, manufacturer part number, notes, and custom values.
-- Quick filters for Low Inventory, Borrowed, Needs Reorder, Has Documents, Has Photo, No Vendor, and Out.
-- Column chooser for the Inventory grid with per-workstation persistence.
-- Right-click action menu for Open Item, Receive, Issue, Borrow, Move, Adjust Quantity, Open Documents, and Column Chooser.
-
-### Changed
-- Inventory page renamed visually to Inventory Workspace.
-- Inventory grid focuses on high-value columns and moves detail information into the summary pane.
-- Item selection now updates a live summary card without requiring the item editor to be opened.
-
-### Fixed
-- Reduced reliance on cramped all-column grid layouts in the Inventory page.
