@@ -121,10 +121,6 @@ Changes intended for the stable baseline should be tested on `develop` and promo
 
 ForgeWorks is developed through short feedback loops with the people using the application. Working builds are placed in front of users, friction points are identified from the real workflow, and capability is iterated based on that feedback.
 
-## Release Note
-
-A GitHub release was initially created as `v3.0.1` based on an older README label. Review of the current source confirmed that the repository snapshot is **v3.1.3**. The release/tag should be normalized to v3.1.3 so GitHub release metadata matches the actual source baseline.
-
 ---
 
 **Engineering the Warfighter's Advantage.**
