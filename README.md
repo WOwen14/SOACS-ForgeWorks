@@ -4,7 +4,7 @@
   <img src="Assets/GitHub-Logo.jpg" alt="SOACS ForgeWorks" width="400">
 </p>
 
-SOACS ForgeWorks is an offline-capable inventory, project material, fabrication shop, and reporting application for the Command Forge.
+SOACS ForgeWorks is an offline-capable inventory, project material, fabrication shop, and reporting application for the Commando Forge.
 
 ## Build Notes
 - Visual Studio compatible source package.
