@@ -1,5 +1,9 @@
 # SOACS ForgeWorks v1.0.0 Reporting Preview
 
+<p align="center">
+  <img src="Assets/GitHub-Logo.jpg" alt="SOACS ForgeWorks" width="400">
+</p>
+
 SOACS ForgeWorks is an offline-capable inventory, project material, fabrication shop, and reporting application for the Command Forge.
 
 ## Build Notes
